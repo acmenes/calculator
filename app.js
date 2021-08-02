@@ -61,12 +61,23 @@ app.get('/median', (request, response) => {
     for (let i = 0; i < nums.length; i++){
         numInt = parseInt(nums[i], 10)
         numsArray.push(numInt)
+        numsArray.sort((a,b) => a-b)
     }
     console.log(numsArray)
-    return response.json({
-        operation: "median",
-        value: "value goes here"
-    })
+    let midNum = Math.round(((numsArray.length - 1)/2))
+    console.log(midNum)
+    if(numsArray.length % 2 === 0){
+        return response.json({
+            operation: "median",
+            value: "please submit an odd amount of values"
+        })
+    }
+    else{
+        return response.json({
+            operation: "median",
+            value: numsArray[midNum]
+        })
+    }
 })
 
 app.get('/mode', (request, response) => {
